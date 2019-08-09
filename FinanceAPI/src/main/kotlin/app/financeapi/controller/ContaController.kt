@@ -9,7 +9,8 @@ import app.financeapi.entity.Conta
 @RestController
 @RequestMapping("api/contas")
 class ContaController{
-    @GetMapping	
+    /*
+	@GetMapping	
 	fun contas(): List<Conta>{
 	    var categs = categorias();
 	
@@ -23,4 +24,5 @@ class ContaController{
 		
 		return listOf(c1, c2, c3, c4, c5, c6, c7)  
 	}
+	*/
 }

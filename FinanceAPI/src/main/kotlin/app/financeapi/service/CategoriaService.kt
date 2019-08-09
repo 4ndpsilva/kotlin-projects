@@ -1,9 +1,12 @@
-class CategoriaService{
-    fun list(){
-        val cat1 = Categoria(1, "Alimentação")
-	    val cat2 = Categoria(2, "Transporte")
-	    val cat3 = Categoria(3, "Renda")
-		
-	    return listOf(cat1, cat2, cat3)
-    }
+package app.financeapi.service
+
+import org.springframework.stereotype.Service
+
+import app.financeapi.entity.Categoria
+import app.financeapi.repository.CategoriaRepository
+
+@Service
+class CategoriaService(private val repository: CategoriaRepository){
+    fun save(entity: Categoria) = repository.save(entity)
+	fun list(): List<Categoria> = repository.findAll()
 }

@@ -12,7 +12,7 @@ import app.financeapi.entity.Lancamento
 @RestController
 @RequestMapping("api/lancamentos")
 class LancamentoController{
-    
+    /*
 	@GetMapping
 	fun lancamentos(): List<Lancamento>{
 	    var contas = contas();
@@ -34,4 +34,5 @@ class LancamentoController{
 		
 		return lancamentos;
 	}
+	*/
 }
