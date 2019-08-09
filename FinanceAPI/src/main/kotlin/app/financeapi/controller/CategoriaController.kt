@@ -6,8 +6,10 @@ import org.springframework.web.bind.annotation.RestController
 
 
 @RestController
-@RequestMapping("api")
-class IndexController{
+@RequestMapping(("api/categorias")
+class CategoriaController{
     @GetMapping
-	fun index() = "teste spring boot com kotlin"
+    fun categorias(): List<Categoria>{
+	   return service.list()
+	}
 }
