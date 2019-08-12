@@ -12,6 +12,7 @@ repositories {
 
 dependencies {
     implementation 'org.jetbrains.kotlin:kotlin-stdlib'
+	implementation 'org.jetbrains.kotlin:kotlin-reflect'
     testImplementation 'org.jetbrains.kotlin:kotlin-test'
     testImplementation 'org.jetbrains.kotlin:kotlin-test-junit'
     
@@ -24,6 +25,5 @@ dependencies {
 }
 
 application {
-    //mainClassName = 'app.financeapi.AppKt'
     mainClassName = 'app.financeapi.FinanceAPIApplicationKt'
 }
