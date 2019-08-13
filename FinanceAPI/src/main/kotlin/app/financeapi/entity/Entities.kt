@@ -1,6 +1,5 @@
 package app.financeapi.entity
 
-import javax.persistence.MappedSuperclass
 import javax.persistence.Entity
 import javax.persistence.Table
 import javax.persistence.Id
@@ -9,14 +8,13 @@ import javax.persistence.JoinColumn
 import javax.persistence.ManyToOne
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
+import javax.persistence.EnumType
+import javax.persistence.Enumerated
+import javax.persistence.Temporal
+import javax.persistence.TemporalType
 
 import java.time.LocalDate
 
-/*
-@MappedSuperclass
-data class BaseEntity(
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY) var id: Long? = null)
-*/
 	
 @Entity
 @Table(name = "TB_CATEGORIA")
@@ -25,22 +23,43 @@ data class Categoria(
     @Column(name = "DESCRICAO", length = 20, unique = true, nullable = false)	
 	val descricao: String){ constructor(): this(0, "") }
 
+
 @Entity
 @Table(name = "TB_CONTA")
 data class Conta(
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY) var id: Long = 0,
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY) var id: Long,
 	@Column(name = "DESCRICAO", length = 20, unique = true, nullable = false)
-	var descricao: String,
+	val descricao: String,
+	
 	@ManyToOne
     @JoinColumn(mappedBy = "categoria_id")	
-	var categoria: Categoria?){ constructor(): this(0, "", null) }
+	val categoria: Categoria?){ constructor(): this(0, "", null) }
 
-data class Lancamento(var id: Int, 
-					  var data: LocalDate, 
-					  var categoria: Categoria, 
-					  var conta: Conta, 
-					  var valor: Double, 
-					  var operacao: String)
+
+@Entity
+@Table(name = "TB_LANCAMENTO")
+data class Lancamento(
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY),
+	val id: Long,
+
+	@Temporal(TemporalType.Date) 
+	val data: LocalDate, 
+
+	@ManyToOne
+    @JoinColumn(mappedBy = "categoria_id")
+	val categoria: Categoria, 
+
+	@ManyToOne
+    @JoinColumn(mappedBy = "conta_id")	
+	val conta: Conta, 
+
+	val valor: Double, 
+
+	@Enumerated(EnumType.STRING)
+	val operacao: Operacao){ 
+		constructor(): this(0, null, null, null, 0.0, null) 
+	}
+
 
 enum class Operacao(val value: String){
   CREDITO("C"),

@@ -6,4 +6,4 @@ import org.springframework.data.jpa.repository.JpaRepository
 import app.financeapi.entity.Conta
 
 @Repository
-interface ContaRepository: JpaRepository<Conta, Long>{}
+interface ContaRepository: BaseRepository<Conta>{}
