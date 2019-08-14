@@ -10,11 +10,8 @@ import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.EnumType
 import javax.persistence.Enumerated
-import javax.persistence.Convert
 
 import java.time.LocalDate
-
-import app.financeapi.converter.EnumConverter
 
 	
 @Entity
@@ -59,8 +56,7 @@ data class Lancamento(
 	@Column(precision = 5, scale = 2, nullable = false)
 	val valor: Double?, 
 
-	@Enumerated//(EnumType.STRING)
-	//@Convert(converter = EnumConverter::class)
+	@Enumerated
 	val operacao: Operacao?, 
 	
 	@Column(length = 20)
@@ -70,6 +66,6 @@ data class Lancamento(
 
 
 enum class Operacao{
-  CREDITO
+  CREDITO,
   DEBITO
 }
