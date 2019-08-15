@@ -21,6 +21,12 @@ abstract class BaseController<T>(private val service: BaseService<T>){
 	   return ResponseEntity(HttpStatus.CREATED)
 	}
 	
+	@PutMapping("/{id}")
+	fun update(@RequestBody request: T): ResponseEntity<T>{
+	   service.save(request) 
+	   return ResponseEntity(HttpStatus.OK)
+	}
+	
 	@DeleteMapping("/{id}")
 	fun delete(@PathVariable("id") id: Long): ResponseEntity<T>{
 	   service.delete(id) 
