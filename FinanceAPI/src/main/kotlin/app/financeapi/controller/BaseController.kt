@@ -16,16 +16,22 @@ import app.financeapi.service.BaseService
 
 
 abstract class BaseController<T>(private val service: BaseService<T>){
-    @PostMapping
-	fun save(@RequestBody request: T): ResponseEntity<T>{
-	   service.save(request) 
+	@PostMapping
+	fun save(@RequestBody requestDTO: T): ResponseEntity<T>{
+	   service.save(requestDTO) 
 	   return ResponseEntity(HttpStatus.CREATED)
 	}
 	
 	@PutMapping("/{id}")
-	fun update(@RequestBody request: T): ResponseEntity<T>{
-	   service.save(request) 
-	   return ResponseEntity(HttpStatus.OK)
+	fun update(@PathVariable("id") id: Long, @RequestBody requestDTO: T): ResponseEntity<T>{
+	   var entity: T = requestDTO as T
+	   
+	   if(service.findById(id) != null){
+	     service.save(entity) 
+		 return ResponseEntity(HttpStatus.OK)
+	   }
+	   
+	   return ResponseEntity(HttpStatus.NOT_FOUND)
 	}
 	
 	@DeleteMapping("/{id}")
@@ -42,6 +48,6 @@ abstract class BaseController<T>(private val service: BaseService<T>){
 	
     @GetMapping
     fun list(): ResponseEntity<List<T>>{
-	   return ResponseEntity.ok(service.list())
+	   return ResponseEntity(service.list(), HttpStatus.OK)
 	}
 }
