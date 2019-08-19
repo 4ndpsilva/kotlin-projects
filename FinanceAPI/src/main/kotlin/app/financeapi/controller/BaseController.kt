@@ -23,7 +23,7 @@ abstract class BaseController<T>(private val service: BaseService<T>){
 	}
 	
 	@PutMapping("/{id}")
-	fun update(@PathVariable("id") id: Long, @RequestBody requestDTO: T): ResponseEntity<T>{
+	fun update(@PathVariable("id") id: Long, @RequestBody requestDTO: Any): ResponseEntity<T>{
 	   var entity: T = requestDTO as T
 	   
 	   if(service.findById(id) != null){
