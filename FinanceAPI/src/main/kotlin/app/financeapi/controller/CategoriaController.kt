@@ -7,5 +7,5 @@ import app.financeapi.entity.Categoria
 import app.financeapi.service.CategoriaService
 
 @RestController
-@RequestMapping("api/categorias")
+@RequestMapping("{base.url}/categorias")
 class CategoriaController(private val service: CategoriaService): BaseController<Categoria>(service)

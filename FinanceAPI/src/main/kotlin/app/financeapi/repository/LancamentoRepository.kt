@@ -9,5 +9,11 @@ import app.financeapi.entity.Lancamento
 
 @Repository
 interface LancamentoRepository: BaseRepository<Lancamento>{
-  fun findByDataBetween(inicio: LocalDate,  fim: LocalDate): List<Lancamento>
+  fun findByDataBetweenOrderByDataDesc(inicio: LocalDate, fim: LocalDate): List<Lancamento>
+  
+  fun findByCategoriaId(idCategoria: Long): List<Lancamento>
+  
+  fun findByContaId(idConta: Long): List<Lancamento>
+  
+  fun findByOperacao(operacao: String): List<Lancamento>
 }

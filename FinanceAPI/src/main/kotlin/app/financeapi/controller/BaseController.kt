@@ -22,25 +22,23 @@ abstract class BaseController<T>(private val service: BaseService<T>){
 	   return ResponseEntity(HttpStatus.CREATED)
 	}
 	
-	@PutMapping("/{id}")
-	fun update(@PathVariable("id") id: Long, @RequestBody requestDTO: Any): ResponseEntity<T>{
-	   var entity: T = requestDTO as T
-	   
+	@PutMapping("/{id:${regex.int}}")
+	fun update(@PathVariable("id") id: Long, @RequestBody requestDTO: T): ResponseEntity<T>{
 	   if(service.findById(id) != null){
-	     service.save(entity) 
+	     service.save(requestDTO) 
 		 return ResponseEntity(HttpStatus.OK)
 	   }
 	   
 	   return ResponseEntity(HttpStatus.NOT_FOUND)
 	}
 	
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/{id:${regex.int}}")
 	fun delete(@PathVariable("id") id: Long): ResponseEntity<T>{
 	   service.delete(id) 
 	   return ResponseEntity(HttpStatus.NO_CONTENT)
 	}
 	
-	@GetMapping("/{id}")
+	@GetMapping("/{id:${regex.int}}")
 	fun findById(@PathVariable("id") id: Long): ResponseEntity<T>{
 	   val entity = service.findById(id) 
 	   return ResponseEntity(entity, HttpStatus.OK)
