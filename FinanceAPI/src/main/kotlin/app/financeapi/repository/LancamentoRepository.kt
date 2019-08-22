@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository
 import org.springframework.data.jpa.repository.JpaRepository
 
 import app.financeapi.entity.Lancamento
+import app.financeapi.entity.Operacao
 
 @Repository
 interface LancamentoRepository: BaseRepository<Lancamento>{
@@ -15,5 +16,5 @@ interface LancamentoRepository: BaseRepository<Lancamento>{
   
   fun findByContaId(idConta: Long): List<Lancamento>
   
-  fun findByOperacao(operacao: String): List<Lancamento>
+  fun findByOperacao(operacao: Operacao): List<Lancamento>
 }

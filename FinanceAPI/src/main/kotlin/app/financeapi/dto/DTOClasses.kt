@@ -9,6 +9,8 @@ import app.financeapi.entity.Lancamento
 import app.financeapi.entity.Operacao
 
 
+data class ResponseDTO<T>(val data: T? = null, val list: List<T>? = null, val errors: List<String>? = null)
+
 data class ErrorResponseDTO(val code: Int?, val message: String?, val date: LocalDateTime?)
 
 data class CategoriaDTO(val id: Long, val descricao: String)

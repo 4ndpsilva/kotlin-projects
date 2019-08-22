@@ -5,8 +5,10 @@ import java.time.format.DateTimeFormatter
 
 import org.springframework.stereotype.Service
 
-import app.financeapi.entity.Lancamento
 import app.financeapi.repository.LancamentoRepository
+import app.financeapi.entity.Lancamento
+import app.financeapi.entity.Operacao
+
 
 @Service
 class LancamentoService(private val repository: LancamentoRepository): BaseService<Lancamento>(repository){
@@ -23,5 +25,5 @@ class LancamentoService(private val repository: LancamentoRepository): BaseServi
     
 	fun findByConta(idConta: Long) = repository.findByContaId(idConta)
     
-	fun findByOperacao(operacao: String) = repository.findByOperacao(operacao)
+	fun findByOperacao(operacao: Operacao) = repository.findByOperacao(operacao)
 }

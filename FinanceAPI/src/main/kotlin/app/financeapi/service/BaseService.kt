@@ -9,10 +9,7 @@ abstract class BaseService<T>(private val repository: BaseRepository<T>){
 		repository.deleteById(id)
 	}
 	
-	fun findById(id: Long): T{
-		val entity = repository.findById(id).orElse(null)
-		return entity
-	}
-	
-	fun list(): List<T> = repository.findAll()
+	fun findById(id: Long): T = repository.findById(id).orElse(null)
+		
+	fun findAll(): List<T> = repository.findAll()
 }

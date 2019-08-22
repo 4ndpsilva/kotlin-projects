@@ -12,9 +12,9 @@ import app.financeapi.entity.Conta
 import app.financeapi.service.ContaService
 
 @RestController
-@RequestMapping("{base.url}/contas")
+@RequestMapping("api/contas")
 class ContaController(private val service: ContaService): BaseController<Conta>(service){
-  @GetMapping("/categoria/{idCategoria:{regex.int}}")
+  @GetMapping("/categoria/{idCategoria:\\d+}")
   fun findByCategoria(@PathVariable idCategoria: Long): ResponseEntity<List<Conta>>{
     val entities = service.findByCategoria(idCategoria)
     return if(entities.isEmpty()) ResponseEntity(HttpStatus.NOT_FOUND) else ResponseEntity(entities, HttpStatus.OK) 

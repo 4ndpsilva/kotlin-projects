@@ -18,34 +18,28 @@ import app.financeapi.service.BaseService
 abstract class BaseController<T>(private val service: BaseService<T>){
 	@PostMapping
 	fun save(@RequestBody requestDTO: T): ResponseEntity<T>{
-	   service.save(requestDTO) 
-	   return ResponseEntity(HttpStatus.CREATED)
+	   return ResponseEntity(service.save(requestDTO), HttpStatus.CREATED)
 	}
 	
-	@PutMapping("/{id:${regex.int}}")
+	@PutMapping("/{id:\\d+}")
 	fun update(@PathVariable("id") id: Long, @RequestBody requestDTO: T): ResponseEntity<T>{
-	   if(service.findById(id) != null){
-	     service.save(requestDTO) 
-		 return ResponseEntity(HttpStatus.OK)
-	   }
-	   
-	   return ResponseEntity(HttpStatus.NOT_FOUND)
+	   return if(service.findById(id) != null) ResponseEntity(service.save(requestDTO), HttpStatus.OK) else ResponseEntity(HttpStatus.NOT_FOUND)
 	}
 	
-	@DeleteMapping("/{id:${regex.int}}")
+	@DeleteMapping("/{id:\\d+}")
 	fun delete(@PathVariable("id") id: Long): ResponseEntity<T>{
 	   service.delete(id) 
 	   return ResponseEntity(HttpStatus.NO_CONTENT)
 	}
 	
-	@GetMapping("/{id:${regex.int}}")
+	@GetMapping("/{id:\\d+}")
 	fun findById(@PathVariable("id") id: Long): ResponseEntity<T>{
-	   val entity = service.findById(id) 
-	   return ResponseEntity(entity, HttpStatus.OK)
+	   val entity = service.findById(id)
+	   return if(entity != null) ResponseEntity(entity, HttpStatus.OK) else ResponseEntity(HttpStatus.NOT_FOUND) 	   
 	}
 	
     @GetMapping
-    fun list(): ResponseEntity<List<T>>{
-	   return ResponseEntity(service.list(), HttpStatus.OK)
+    fun findAll(): ResponseEntity<List<T>>{
+	   return ResponseEntity(service.findAll(), HttpStatus.OK)
 	}
 }
