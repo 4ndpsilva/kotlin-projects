@@ -24,3 +24,9 @@ data class LancamentoDTO(
 	val conta: Conta?, 
 	val valor: Double?, 
 	val operacao: Operacao?)
+	
+data class ResultDTO(
+	val categoria: String?,
+	val totalCategoria: Double?, 
+	val conta: String?, 
+	val totalConta: Double?)	
