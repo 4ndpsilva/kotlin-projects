@@ -29,4 +29,6 @@ data class ResultDTO(
 	val categoria: String?,
 	val totalCategoria: Double?, 
 	val conta: String?, 
-	val totalConta: Double?)	
+	val totalConta: Double?,
+	val totalDebito: Double?,
+	val totalCredito: Double?)	
