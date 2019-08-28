@@ -14,10 +14,25 @@ import app.financeapi.dto.ResultDTO
 class DashboardService(private val serviceLancamento: LancamentoService){
   fun calculate(inicio: String, fim: String): List<ResultDTO>{
     val lancamentos = serviceLancamento.findByData(inicio, fim)
-	val result = ResultDTO("", 0.0, "", 0.0, 0.0, 0.0)
+	val result = mutableListOf<ResultDTO>()
+  
+    for(idCategoria in categoriasIds.sorted()){
+	  val dto = ResultDTO()
+	  val filteredCategoria = lancamentos.filter{ it.categoria.id == idCategoria }	
 	
-	result.totalCategoria = lancamentos.filter{ it.categoria.id == 1L }.fold(0){ s, e -> s + e }
+	  dto.categoria = filteredCategoria.map{ it.categoria.descricao }.first()
+	  dto.totalCategoria = filteredCategoria.map{ it.valor }.reduce{ total, item -> total + item }   
 	
+	  filteredCategoria.forEach{ contasIds.add(it.conta.id) }
+      
+/*	  
+	  for(idConta in contasIds.sorted()){
+	    val filteredConta = filteredCategoria.filter{ it.conta.id == idConta }	
+	
+	    dto.conta = filteredConta.map{ it.conta.descricao }.first()
+	    dto.totalConta = filteredConta.map{ it.valor }.reduce{ total, item -> total + item } 
+	  }	
+	*/
     val list = mutableListOf(result)
 	return list
   } 
