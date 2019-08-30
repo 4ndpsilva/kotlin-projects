@@ -20,7 +20,10 @@ data class Categoria(
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY) 
 	val id: Long,
     @Column(name = "DESCRICAO", length = 20, unique = true, nullable = false)	
-	val descricao: String){ constructor(): this(0, "") }
+	val descricao: String){ 
+	
+	constructor(): this(0, "") 
+}
 
 
 @Entity
@@ -29,11 +32,14 @@ data class Conta(
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY) 
 	val id: Long,
 	@Column(name = "DESCRICAO", length = 20, unique = true, nullable = false)
-	val descricao: String,
+	val descricao: String){ 
 	
 	@ManyToOne
     @JoinColumn(mappedBy = "categoria_id")	
-	val categoria: Categoria?){ constructor(): this(0, "", null) }
+	lateinit var categoria: Categoria
+	
+	constructor(): this(0, "") 
+}
 
 
 @Entity
@@ -44,25 +50,26 @@ data class Lancamento(
 
 	@Column(columnDefinition = "DATE")
 	val data: LocalDate?, 
-	
-	@ManyToOne
-    @JoinColumn(mappedBy = "categoria_id", nullable = false)
-	val categoria: Categoria?, 
-
-	@ManyToOne
-    @JoinColumn(mappedBy = "conta_id", nullable = false)	
-	val conta: Conta?, 
-	
-	@Column(precision = 5, scale = 2, nullable = false)
-	val valor: Double?, 
 
 	@Enumerated
 	val operacao: Operacao?, 
 	
 	@Column(length = 20)
 	val observacao: String?){ 
-		constructor(): this(0, null, null, null, null, null, null) 
-	}
+	
+	    @ManyToOne
+		@JoinColumn(mappedBy = "categoria_id", nullable = false)
+		lateinit var categoria: Categoria 
+
+		@ManyToOne
+		@JoinColumn(mappedBy = "conta_id", nullable = false)	
+		lateinit var conta: Conta 
+		
+		@Column(precision = 5, scale = 2, nullable = false)
+	    var valor: Double = 0.0
+		
+		constructor(): this(0, null, null, null) 
+}
 
 
 enum class Operacao{

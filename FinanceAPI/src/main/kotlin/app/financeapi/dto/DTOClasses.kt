@@ -9,7 +9,7 @@ import app.financeapi.entity.Lancamento
 import app.financeapi.entity.Operacao
 
 
-data class ResponseDTO<T>(val data: T? = null, val list: List<T>? = null, val errors: List<String>? = null)
+data class ResponseDTO<T>(var data: T? = null, var list: List<T>? = null, var errors: List<String>? = null)
 
 data class ErrorResponseDTO(val code: Int?, val message: String?, val date: LocalDateTime?)
 
@@ -25,10 +25,4 @@ data class LancamentoDTO(
 	val valor: Double?, 
 	val operacao: Operacao?)
 	
-data class ResultDTO(
-	val categoria: String?,
-	val totalCategoria: Double?, 
-	val conta: String?, 
-	val totalConta: Double?,
-	val totalDebito: Double?,
-	val totalCredito: Double?)	
+data class ResultDTO(var descricao: String = "", var total: Double = 0.0, var subitem: List<ResultDTO> = mutableListOf())
