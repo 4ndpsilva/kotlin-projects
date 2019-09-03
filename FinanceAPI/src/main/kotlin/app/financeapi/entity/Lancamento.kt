@@ -17,7 +17,7 @@ data class Lancamento(
 	@Column(columnDefinition = "DATE")
 	val data: LocalDate?, 
 
-	@Enumerated
+	@Enumerated(EnumType.STRING)
 	val operacao: Operacao?, 
 	
 	@Column(length = 20)

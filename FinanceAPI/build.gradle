@@ -24,6 +24,10 @@ dependencies {
     implementation 'com.h2database:h2'
 }
 
+compileKotlin {
+    kotlinOptions.jvmTarget = "12"
+}
+
 application {
     mainClassName = 'app.financeapi.FinanceAPIApplicationKt'
 }
