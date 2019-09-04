@@ -10,6 +10,7 @@ import app.financeapi.repository.LancamentoRepository
 import app.financeapi.repository.specification.QuerySpec
 import app.financeapi.entity.Lancamento
 import app.financeapi.entity.Operacao
+import app.financeapi.dto.ParamsDTO
 
 
 @Service
@@ -29,11 +30,7 @@ class LancamentoService(private val repository: LancamentoRepository): BaseServi
     
 	fun findByOperacao(operacao: Operacao) = repository.findByOperacao(operacao)
 	
-	fun find(inicio: String, fim: String): List<Lancamento> {
-	  val format = DateTimeFormatter.ofPattern("dd-MM-yyyy")	  
-  	  val dataInicio = LocalDate.parse(inicio, format) 
-	  val dataFim = LocalDate.parse(fim, format) 
-	   
-	  return repository.findAll(Specification.where(QuerySpec.between(dataInicio, dataFim)))
+	fun find(paramsDTO: ParamsDTO?): List<Lancamento> {   
+	  return repository.findAll(Specification.where(QuerySpec.between(paramsDTO.dataInicio, paramsDTO.dataFim)))
 	}  
 }

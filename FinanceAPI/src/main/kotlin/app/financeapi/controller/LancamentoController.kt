@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus
 
 import app.financeapi.controller.converter.OperacaoEnumConverter
 
+import app.financeapi.dto.ParamsDTO
 import app.financeapi.entity.Lancamento
 import app.financeapi.entity.Operacao
 import app.financeapi.service.LancamentoService
@@ -22,7 +23,12 @@ import app.financeapi.service.LancamentoService
 @RequestMapping("api/lancamentos")
 class LancamentoController(private val service: LancamentoService): BaseController<Lancamento>(service){
     @GetMapping("/data/{inicio:\\d{2}-\\d{2}-\\d{4}}/{fim:\\d{2}-\\d{2}-\\d{4}}")
-    fun findByData(@PathVariable inicio: String, @PathVariable fim: String) = ResponseEntity(service.find(inicio, fim), HttpStatus.OK)
+    fun findByData(@PathVariable inicio: String, @PathVariable fim: String){
+  	  val dto = ParamsDTO()
+	  paramsDTO.dataInicio = inicio
+	  paramsDTO.dataFim = fim
+ 	  ResponseEntity(service.find(paramsDTO), HttpStatus.OK)
+	}
 
 	@GetMapping("/categoria/{idCategoria:\\d+}")
 	fun findByCategoria(@PathVariable idCategoria: Long) = ResponseEntity(service.findByCategoria(idCategoria), HttpStatus.OK)
@@ -33,10 +39,8 @@ class LancamentoController(private val service: LancamentoService): BaseControll
 	@GetMapping("/operacao/{operacao}")
     fun findByOperacao(@PathVariable operacao: Operacao) = ResponseEntity(service.findByOperacao(operacao), HttpStatus.OK)
 	
-	/*
 	@InitBinder
 	fun initBinder(binder: WebDataBinder){
 	  binder.registerCustomEditor(Operacao::class.java, OperacaoEnumConverter())
 	}
-	*/
 }

@@ -10,6 +10,4 @@ import javax.persistence.Column
 data class Categoria(
     @Column(name = "DESCRICAO", length = 20, unique = true, nullable = false)	
 	val descricao: String): BaseEntity<Long>(0L){ 
-
-	constructor(): this("") 
 }

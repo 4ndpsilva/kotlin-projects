@@ -33,8 +33,6 @@ data class Lancamento(
 		
 		@Column(precision = 5, scale = 2, nullable = false)
 	    var valor: Double = 0.0
-		
-		constructor(): this(null, null, null) 
 }
 
 enum class Operacao{

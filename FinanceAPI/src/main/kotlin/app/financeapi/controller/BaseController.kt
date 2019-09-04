@@ -43,7 +43,7 @@ abstract class BaseController<BaseEntity>(private val service: BaseService<BaseE
 	}
 	
     @GetMapping
-    fun findAll(): ResponseEntity<List<BaseEntity>>{
-	   return ResponseEntity(service.findAll(), HttpStatus.OK)
+    fun find(): ResponseEntity<List<BaseEntity>>{
+	   return ResponseEntity(service.find(null), HttpStatus.OK)
 	}
 }

@@ -16,6 +16,4 @@ data class Conta(
 	@ManyToOne
     @JoinColumn(mappedBy = "categoria_id")	
 	lateinit var categoria: Categoria
-	
-	constructor(): this("") 
 }

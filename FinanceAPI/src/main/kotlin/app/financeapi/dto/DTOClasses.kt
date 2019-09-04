@@ -9,10 +9,17 @@ data class ErrorResponseDTO(val code: Int?, val message: String?, val date: Loca
 
 data class ResultDTO(var descricao: String = "", var total: Double = 0.0, var subitem: List<ResultDTO> = mutableListOf())
 
+open class BaseParamsDTO(var id: Long = 0L)
+
 data class ParamsDTO(
-	val id: Long? = null,
-	val dataInicial: LocalDate? = null, 
+	val idCategoria: Long? = 0L, 
+	val idConta: Long? = 0L): BaseParamsDTO(){
+	
+	val dataInicial: LocalDate? = null
+    set(str: String){ field = convertToLocalDate(str: String, format: String) }
+ 	
 	val dataFinal: LocalDate? = null, 
-	val idCategoria: Categoria? = null, 
-	val idConta: Conta? = null, 
-	val operacao: Operacao? = null)
+    set(str: String){ field = convertToLocalDate(str: String, format: String) }
+ 	
+	private fun convertToLocalDate(str: String, format: String) = LocalDate.parse(str, DateTimeFormatter.ofPattern(format)
+}

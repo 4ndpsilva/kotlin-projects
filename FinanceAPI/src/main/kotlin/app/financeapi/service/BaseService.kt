@@ -3,7 +3,10 @@ package app.financeapi.service
 import org.springframework.beans.BeanUtils
 
 import app.financeapi.repository.BaseRepository
+import app.financeapi.repository.specification.QuerySpec
 import app.financeapi.entity.BaseEntity
+
+import app.financeapi.dto.BaseParamsDTO
 
 
 abstract class BaseService<BaseEntity>(private val repository: BaseRepository<BaseEntity>){
@@ -15,7 +18,7 @@ abstract class BaseService<BaseEntity>(private val repository: BaseRepository<Ba
 	
 	fun findById(id: Long): BaseEntity = repository.findById(id).orElse(null)
 		
-	fun findAll(): List<BaseEntity> = repository.findAll()
+	fun find(paramsDTO: BaseParamsDTO? = null) = repository.findAll()
 	
 	fun exists(id: Long) = repository.existsById(id)
 }
