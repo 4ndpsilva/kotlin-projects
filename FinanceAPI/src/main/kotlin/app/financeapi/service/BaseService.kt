@@ -1,9 +1,6 @@
 package app.financeapi.service
 
-import org.springframework.beans.BeanUtils
-
 import app.financeapi.repository.BaseRepository
-import app.financeapi.repository.specification.QuerySpec
 import app.financeapi.entity.BaseEntity
 
 import app.financeapi.dto.BaseParamsDTO
