@@ -8,4 +8,4 @@ import app.financeapi.service.CategoriaService
 
 @RestController
 @RequestMapping("api/categorias")
-class CategoriaController(private val service: CategoriaService): BaseController<Categoria>(service)
+class CategoriaController(private val service: CategoriaService) : BaseController<Categoria>(service)

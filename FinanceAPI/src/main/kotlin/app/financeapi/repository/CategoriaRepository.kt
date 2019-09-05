@@ -6,4 +6,4 @@ import org.springframework.data.jpa.repository.JpaRepository
 import app.financeapi.entity.Categoria
 
 @Repository
-interface CategoriaRepository: BaseRepository<Categoria>{}
+interface CategoriaRepository : BaseRepository<Categoria> {}

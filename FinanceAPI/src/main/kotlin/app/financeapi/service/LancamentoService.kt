@@ -14,23 +14,19 @@ import app.financeapi.dto.ParamsDTO
 
 
 @Service
-class LancamentoService(private val repository: LancamentoRepository): BaseService<Lancamento>(repository){
-  
-    fun findByData(inicio: String, fim: String): List<Lancamento>{
-       val format = DateTimeFormatter.ofPattern("dd-MM-yyyy")	  
-  	   val dataInicio = LocalDate.parse(inicio, format) 
-	   val dataFim = LocalDate.parse(fim, format) 
-	  
-	   return repository.findByDataBetweenOrderByDataDesc(dataInicio, dataFim)
+class LancamentoService(private val repository: LancamentoRepository) : BaseService<Lancamento>(repository) {
+
+	fun findByCategoria(idCategoria: Long): List<Lancamento> {
+		return repository.findAll(Specification.where(QuerySpec.byCategoria(1)))
 	}
 	
-	fun findByCategoria(idCategoria: Long) = repository.findByCategoriaId(idCategoria)
-    
 	fun findByConta(idConta: Long) = repository.findByContaId(idConta)
-    
+
 	fun findByOperacao(operacao: Operacao) = repository.findByOperacao(operacao)
-	
-	fun find(paramsDTO: ParamsDTO?): List<Lancamento> {   
-	  return repository.findAll(Specification.where(QuerySpec.between(paramsDTO.dataInicio, paramsDTO.dataFim)))
-	}  
+
+	fun find(dto: ParamsDTO): List<Lancamento> {
+		return repository.findAll(Specification.where(
+			QuerySpec.between(dto.dataInicio, dto.dataFim)
+			.or(Specification.where(QuerySpec.byCategoria(1)))))
+	}
 }

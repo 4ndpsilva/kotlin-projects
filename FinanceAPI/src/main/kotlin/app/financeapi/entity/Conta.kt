@@ -11,9 +11,10 @@ import javax.persistence.ManyToOne
 @Table(name = "TB_CONTA")
 data class Conta(
 	@Column(name = "DESCRICAO", length = 20, unique = true, nullable = false)
-	val descricao: String): BaseEntity<Long>(0L){ 
-	
+	val descricao: String
+) : BaseEntity<Long>(0L) {
+
 	@ManyToOne
-    @JoinColumn(mappedBy = "categoria_id")	
+	@JoinColumn(mappedBy = "categoria_id")
 	lateinit var categoria: Categoria
 }

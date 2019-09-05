@@ -15,27 +15,28 @@ import java.time.LocalDate
 @Table(name = "TB_LANCAMENTO")
 data class Lancamento(
 	@Column(columnDefinition = "DATE")
-	val data: LocalDate?, 
+	val data: LocalDate?,
 
 	@Enumerated(EnumType.STRING)
-	val operacao: Operacao?, 
-	
-	@Column(length = 20)
-	val observacao: String?): BaseEntity<Long>(0L){ 
-	
-	    @ManyToOne
-		@JoinColumn(mappedBy = "categoria_id", nullable = false)
-		lateinit var categoria: Categoria 
+	val operacao: Operacao?,
 
-		@ManyToOne
-		@JoinColumn(mappedBy = "conta_id", nullable = false)	
-		lateinit var conta: Conta 
-		
-		@Column(precision = 5, scale = 2, nullable = false)
-	    var valor: Double = 0.0
+	@Column(length = 20)
+	val observacao: String?
+) : BaseEntity<Long>(0L) {
+
+	@ManyToOne
+	@JoinColumn(mappedBy = "categoria_id", nullable = false)
+	lateinit var categoria: Categoria
+
+	@ManyToOne
+	@JoinColumn(mappedBy = "conta_id", nullable = false)
+	lateinit var conta: Conta
+
+	@Column(precision = 5, scale = 2, nullable = false)
+	var valor: Double = 0.0
 }
 
-enum class Operacao{
-  CREDITO,
-  DEBITO
+enum class Operacao {
+	CREDITO,
+	DEBITO
 }

@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository
 import app.financeapi.entity.Conta
 
 @Repository
-interface ContaRepository: BaseRepository<Conta>{
-  fun findByCategoriaId(idCategoria: Long): List<Conta>
+interface ContaRepository : BaseRepository<Conta> {
+	fun findByCategoriaId(idCategoria: Long): List<Conta>
 }

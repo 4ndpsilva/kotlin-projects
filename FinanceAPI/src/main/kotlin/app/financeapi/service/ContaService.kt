@@ -6,6 +6,6 @@ import app.financeapi.entity.Conta
 import app.financeapi.repository.ContaRepository
 
 @Service
-class ContaService(private val repository: ContaRepository): BaseService<Conta>(repository){
-  fun findByCategoria(idCategoria: Long) = repository.findByCategoriaId(idCategoria)
+class ContaService(private val repository: ContaRepository) : BaseService<Conta>(repository) {
+	fun findByCategoria(idCategoria: Long) = repository.findByCategoriaId(idCategoria)
 }
