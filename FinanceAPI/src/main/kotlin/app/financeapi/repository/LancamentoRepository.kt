@@ -9,10 +9,4 @@ import app.financeapi.entity.Lancamento
 import app.financeapi.entity.Operacao
 
 @Repository
-interface LancamentoRepository : BaseRepository<Lancamento> {
-	fun findByCategoriaId(idCategoria: Long): List<Lancamento>
-
-	fun findByContaId(idConta: Long): List<Lancamento>
-
-	fun findByOperacao(operacao: Operacao): List<Lancamento>
-}
+interface LancamentoRepository : BaseRepository<Lancamento> {}
