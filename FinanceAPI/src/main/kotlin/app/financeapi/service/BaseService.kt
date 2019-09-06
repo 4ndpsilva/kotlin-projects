@@ -15,7 +15,7 @@ abstract class BaseService<BaseEntity>(private val repository: BaseRepository<Ba
 
 	fun findById(id: Long): BaseEntity = repository.findById(id).orElse(null)
 
-	fun find(paramsDTO: BaseParamsDTO? = null) = repository.findAll()
+	open fun find(paramsDTO: BaseParamsDTO? = null) = repository.findAll()
 
 	fun exists(id: Long) = repository.existsById(id)
 }

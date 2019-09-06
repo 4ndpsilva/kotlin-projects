@@ -11,13 +11,22 @@ import app.financeapi.dto.ParamsDTO
 
 @Service
 class LancamentoService(private val repository: LancamentoRepository) : BaseService<Lancamento>(repository) {
-
 	fun find(dto: ParamsDTO): List<Lancamento> {
-	    val spec = Specification.where(
-			LancamentoSpec.between(dto.dataInicio, dto.dataFim)
-			.or(LancamentoSpec.byCategoria(dto.idCategoria))
-			.or(LancamentoSpec.byConta(dto.idConta)))
+ 	    var spec = Specification.where<Lancamento>(null)
 		
-		return repository.findAll(spec)
+		if(dto.dataInicio != null && dto.dataFim != null){
+			spec = LancamentoSpec.between(dto.dataInicio, dto.dataFim)
+		}
+	    if(dto.idCategoria > 0){
+			spec = spec.and(LancamentoSpec.byCategoria(dto.idCategoria))
+		}
+		if(dto.idConta > 0){
+			spec = spec.and(LancamentoSpec.byConta(dto.idConta))
+		}
+		if(dto.operacao != null){
+			spec = spec.and(LancamentoSpec.byOperacao(dto.operacao.toString()))
+		}
+		
+		return repository.findAll(Specification.where<Lancamento>(spec))
 	}
 }

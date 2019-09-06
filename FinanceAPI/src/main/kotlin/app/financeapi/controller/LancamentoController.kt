@@ -46,9 +46,15 @@ class LancamentoController(private val service: LancamentoService) : BaseControl
 		return find(dto)
 	}
 
-	@GetMapping("/operacao/{operacao}")
-	fun findByOperacao(@PathVariable operacao: Operacao): ResponseEntity<List<Lancamento>> {
+	@GetMapping("/operacao/{operacao:[a-zA-Z]+}")
+	fun findByOperacao(@PathVariable operacao: String): ResponseEntity<List<Lancamento>> {
 		val dto = ParamsDTO()
+		dto.operacao = when(operacao.toUpperCase()){
+			"debito".toUpperCase() -> Operacao.DEBITO
+			"credito".toUpperCase() -> Operacao.CREDITO
+			else -> return ResponseEntity(HttpStatus.NOT_FOUND)
+		}
+		
 		return find(dto)
 	}
 

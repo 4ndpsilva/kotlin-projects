@@ -1,3 +1,7 @@
 codeStyle/codeStyleId=KOTLIN_OFFICIAL
 codeStyle/globalsOverridden=true
+compilerPlugins/jpa/active=true
+compilerPlugins/no-arg/active=true
+compilerPlugins/spring/active=true
 eclipse.preferences.version=1
+globalsOverridden=true

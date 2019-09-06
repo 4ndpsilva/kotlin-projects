@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus
 
 import app.financeapi.service.BaseService
 import app.financeapi.entity.BaseEntity
+import app.financeapi.dto.BaseParamsDTO
 
 
 abstract class BaseController<BaseEntity>(private val service: BaseService<BaseEntity>) {
@@ -42,9 +43,13 @@ abstract class BaseController<BaseEntity>(private val service: BaseService<BaseE
 		val entity = service.findById(id)
 		return if (entity != null) ResponseEntity(entity, HttpStatus.OK) else ResponseEntity(HttpStatus.NOT_FOUND)
 	}
+	
+	@GetMapping("/{termo}")
+	fun findByTerm(@PathVariable("termo") termo: String): ResponseEntity<List<BaseEntity>> {
+		val result = service.find(BaseParamsDTO(0, termo)) 
+		return if (result != null && !result.isEmpty()) ResponseEntity(result, HttpStatus.OK) else ResponseEntity(HttpStatus.NOT_FOUND)
+	}
 
 	@GetMapping
-	fun find(): ResponseEntity<List<BaseEntity>> {
-		return ResponseEntity(service.find(null), HttpStatus.OK)
-	}
+	fun find() = ResponseEntity(service.find(null), HttpStatus.OK)
 }
