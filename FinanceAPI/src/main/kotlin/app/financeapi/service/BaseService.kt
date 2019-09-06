@@ -2,7 +2,6 @@ package app.financeapi.service
 
 import app.financeapi.repository.BaseRepository
 import app.financeapi.entity.BaseEntity
-
 import app.financeapi.dto.BaseParamsDTO
 
 
@@ -15,7 +14,11 @@ abstract class BaseService<BaseEntity>(private val repository: BaseRepository<Ba
 
 	fun findById(id: Long): BaseEntity = repository.findById(id).orElse(null)
 
-	open fun find(paramsDTO: BaseParamsDTO? = null) = repository.findAll()
+	fun find(paramsDTO: BaseParamsDTO? = null) = repository.findAll()
+	
+	fun findByFilter(filter: Map<String, Any>? = null): List<BaseEntity> {
+	  return mutableListOf<BaseEntity>()
+	}
 
 	fun exists(id: Long) = repository.existsById(id)
 }

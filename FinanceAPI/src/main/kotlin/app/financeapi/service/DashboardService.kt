@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service
 
 import app.financeapi.service.LancamentoService
 import app.financeapi.entity.Lancamento
-import app.financeapi.entity.Operacao
+import app.financeapi.entity.OperacaoEnum
 import app.financeapi.dto.ResultDTO
 import app.financeapi.dto.ParamsDTO
 

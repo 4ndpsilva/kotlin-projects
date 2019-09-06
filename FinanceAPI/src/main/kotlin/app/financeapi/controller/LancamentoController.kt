@@ -14,7 +14,7 @@ import org.springframework.http.HttpStatus
 
 import app.financeapi.dto.ParamsDTO
 import app.financeapi.entity.Lancamento
-import app.financeapi.entity.Operacao
+import app.financeapi.entity.OperacaoEnum
 import app.financeapi.service.LancamentoService
 import app.financeapi.util.DateUtil
 import app.financeapi.constant.Constants
@@ -50,8 +50,8 @@ class LancamentoController(private val service: LancamentoService) : BaseControl
 	fun findByOperacao(@PathVariable operacao: String): ResponseEntity<List<Lancamento>> {
 		val dto = ParamsDTO()
 		dto.operacao = when(operacao.toUpperCase()){
-			"debito".toUpperCase() -> Operacao.DEBITO
-			"credito".toUpperCase() -> Operacao.CREDITO
+			"debito".toUpperCase() -> OperacaoEnum.DEBITO
+			"credito".toUpperCase() -> OperacaoEnum.CREDITO
 			else -> return ResponseEntity(HttpStatus.NOT_FOUND)
 		}
 		

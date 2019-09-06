@@ -18,7 +18,7 @@ data class Lancamento(
 	val data: LocalDate?,
 
 	@Enumerated(EnumType.STRING)
-	val operacao: Operacao?,
+	val operacao: OperacaoEnum?,
 
 	@Column(length = 20)
 	val observacao: String?
@@ -34,9 +34,4 @@ data class Lancamento(
 
 	@Column(precision = 5, scale = 2, nullable = false)
 	var valor: Double = 0.0
-}
-
-enum class Operacao {
-	CREDITO,
-	DEBITO
 }

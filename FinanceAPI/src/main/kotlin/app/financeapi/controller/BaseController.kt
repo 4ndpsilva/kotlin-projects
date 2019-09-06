@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
 import org.springframework.http.ResponseEntity
@@ -25,9 +26,7 @@ abstract class BaseController<BaseEntity>(private val service: BaseService<BaseE
 
 	@PutMapping("/{id:\\d+}")
 	fun update(@PathVariable("id") id: Long, @RequestBody requestDTO: BaseEntity): ResponseEntity<BaseEntity> {
-		return if (service.exists(id)) ResponseEntity(service.save(requestDTO), HttpStatus.OK) else ResponseEntity(
-			HttpStatus.NOT_FOUND
-		)
+		return if (service.exists(id)) ResponseEntity(service.save(requestDTO), HttpStatus.OK) else ResponseEntity(HttpStatus.NOT_FOUND)
 	}
 
 	@DeleteMapping("/{id:\\d+}")
@@ -44,10 +43,9 @@ abstract class BaseController<BaseEntity>(private val service: BaseService<BaseE
 		return if (entity != null) ResponseEntity(entity, HttpStatus.OK) else ResponseEntity(HttpStatus.NOT_FOUND)
 	}
 	
-	@GetMapping("/{termo}")
-	fun findByTerm(@PathVariable("termo") termo: String): ResponseEntity<List<BaseEntity>> {
-		val result = service.find(BaseParamsDTO(0, termo)) 
-		return if (result != null && !result.isEmpty()) ResponseEntity(result, HttpStatus.OK) else ResponseEntity(HttpStatus.NOT_FOUND)
+	@GetMapping("/filter")
+	fun findByFilter(@RequestParam filters: Map<String, Any>): ResponseEntity<Map<String, Any>> {
+		return ResponseEntity(filters, HttpStatus.OK)
 	}
 
 	@GetMapping
