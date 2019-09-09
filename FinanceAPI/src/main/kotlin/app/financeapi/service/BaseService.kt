@@ -12,8 +12,8 @@ abstract class BaseService<BaseEntity>(private val repository: BaseRepository<Ba
 		repository.deleteById(id)
 	}
 
-	fun findById(id: Long): BaseEntity = repository.findById(id).orElse(null)
-
+	fun findById(id: Long) = repository.findById(id).orElse(null)
+	
 	fun find(paramsDTO: BaseParamsDTO? = null) = repository.findAll()
 	
 	fun findByFilter(filter: Map<String, Any>? = null): List<BaseEntity> {
