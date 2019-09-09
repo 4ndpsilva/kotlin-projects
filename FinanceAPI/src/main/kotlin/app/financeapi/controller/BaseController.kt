@@ -18,19 +18,19 @@ import app.financeapi.entity.BaseEntity
 import app.financeapi.dto.BaseParamsDTO
 
 
-abstract class BaseController<BaseEntity>(private val service: BaseService<BaseEntity>) {
+abstract class BaseController<T>(private val service: BaseService<T>) where T : BaseEntity<Long> {
 	@PostMapping
-	fun save(@RequestBody requestDTO: BaseEntity): ResponseEntity<BaseEntity> {
+	fun save(@RequestBody requestDTO: T): ResponseEntity<T> {
 		return ResponseEntity(service.save(requestDTO), HttpStatus.CREATED)
 	}
 
 	@PutMapping("/{id:\\d+}")
-	fun update(@PathVariable("id") id: Long, @RequestBody requestDTO: BaseEntity): ResponseEntity<BaseEntity> {
+	fun update(@PathVariable("id") id: Long, @RequestBody requestDTO: T): ResponseEntity<T> {
 		return if (service.exists(id)) ResponseEntity(service.save(requestDTO), HttpStatus.OK) else ResponseEntity(HttpStatus.NOT_FOUND)
 	}
 
 	@DeleteMapping("/{id:\\d+}")
-	fun delete(@PathVariable("id") id: Long): ResponseEntity<BaseEntity> {
+	fun delete(@PathVariable("id") id: Long): ResponseEntity<T> {
 		return if (service.exists(id)) {
 			service.delete(id)
 			ResponseEntity(HttpStatus.NO_CONTENT)
@@ -38,16 +38,13 @@ abstract class BaseController<BaseEntity>(private val service: BaseService<BaseE
 	}
 
 	@GetMapping("/{id:\\d+}")
-	fun findById(@PathVariable("id") id: Long): ResponseEntity<BaseEntity> {
+	fun findById(@PathVariable("id") id: Long): ResponseEntity<T> {
 		val entity = service.findById(id)
 		return if (entity != null) ResponseEntity(entity, HttpStatus.OK) else ResponseEntity(HttpStatus.NOT_FOUND)
 	}
 	
 	@GetMapping("/filter")
-	fun findByFilter(@RequestParam filters: Map<String, Any>): ResponseEntity<Map<String, Any>> {
-		return ResponseEntity(filters, HttpStatus.OK)
+	fun find(@RequestParam params: MutableMap<String, Any>): ResponseEntity<List<T>> {
+		return ResponseEntity(service.find(params), HttpStatus.OK)
 	}
-
-	@GetMapping
-	fun find() = ResponseEntity(service.find(null), HttpStatus.OK)
 }

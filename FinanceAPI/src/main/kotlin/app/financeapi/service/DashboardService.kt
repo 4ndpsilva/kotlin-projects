@@ -8,13 +8,12 @@ import app.financeapi.service.LancamentoService
 import app.financeapi.entity.Lancamento
 import app.financeapi.entity.OperacaoEnum
 import app.financeapi.dto.ResultDTO
-import app.financeapi.dto.ParamsDTO
 
 
 @Service
 class DashboardService(private val serviceLancamento: LancamentoService) {
-	fun calculate(dto: ParamsDTO): List<ResultDTO> {
-		val lancamentos = serviceLancamento.find(dto)
+	fun calculate(params: MutableMap<String, Any>): List<ResultDTO> {
+		val lancamentos = serviceLancamento.find(params)
 
 		val categoriasIds = mutableSetOf<Long>()
 		lancamentos.forEach { categoriasIds.add(it.categoria.id) }

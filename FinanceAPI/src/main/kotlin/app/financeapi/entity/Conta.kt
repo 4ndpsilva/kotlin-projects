@@ -14,6 +14,10 @@ data class Conta(
 	val descricao: String
 ) : BaseEntity<Long>(0L) {
 
+    @ManyToOne
+	@JoinColumn(mappedBy = "usuario_id", nullable = true)
+	lateinit var usuario: Usuario
+ 
 	@ManyToOne
 	@JoinColumn(mappedBy = "categoria_id")
 	lateinit var categoria: Categoria

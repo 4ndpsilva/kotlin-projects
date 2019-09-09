@@ -24,6 +24,10 @@ data class Lancamento(
 	val observacao: String?
 ) : BaseEntity<Long>(0L) {
 
+    @ManyToOne
+	@JoinColumn(mappedBy = "usuario_id", nullable = true)
+	lateinit var usuario: Usuario
+	
 	@ManyToOne
 	@JoinColumn(mappedBy = "categoria_id", nullable = false)
 	lateinit var categoria: Categoria

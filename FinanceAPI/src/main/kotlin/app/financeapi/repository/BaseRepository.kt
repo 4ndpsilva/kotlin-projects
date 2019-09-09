@@ -8,4 +8,4 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor
 import app.financeapi.entity.BaseEntity
 
 @NoRepositoryBean
-interface BaseRepository<BaseEntity> : JpaRepository<BaseEntity, Long>, JpaSpecificationExecutor<BaseEntity> {}
+interface BaseRepository<T> : JpaRepository<T, Long>, JpaSpecificationExecutor<T> where T : BaseEntity<Long> {}
