@@ -14,6 +14,10 @@ object QuerySpec{
 		return Specification{ root, _, cb -> cb.equal(root.get<Long>("id"), id) }
 	}
 	
+	fun <T> byUsuario(idUsuario: Long): Specification<T>{
+		return Specification{ root, _, cb -> cb.equal(root.get<Long>("usuario"), idUsuario) }
+	}
+	
 	fun <T> byCategoria(idCategoria: Long): Specification<T>{
 		return Specification{ root, _, cb -> cb.equal(root.get<Long>("categoria"), idCategoria) }
 	}

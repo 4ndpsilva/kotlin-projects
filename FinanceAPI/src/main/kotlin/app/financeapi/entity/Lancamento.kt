@@ -7,6 +7,9 @@ import javax.persistence.JoinColumn
 import javax.persistence.ManyToOne
 import javax.persistence.EnumType
 import javax.persistence.Enumerated
+import javax.persistence.Transient
+
+import com.fasterxml.jackson.annotation.JsonIgnore
 
 import java.time.LocalDate
 
@@ -24,18 +27,33 @@ data class Lancamento(
 	val observacao: String?
 ) : BaseEntity<Long>(0L) {
 
+    @JsonIgnore 
     @ManyToOne
 	@JoinColumn(mappedBy = "usuario_id", nullable = true)
-	lateinit var usuario: Usuario
+	lateinit var usuario: Usuario 
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(mappedBy = "categoria_id", nullable = false)
 	lateinit var categoria: Categoria
 
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(mappedBy = "conta_id", nullable = false)
 	lateinit var conta: Conta
 
 	@Column(precision = 5, scale = 2, nullable = false)
 	var valor: Double = 0.0
+	
+	@Transient
+	var idUsuario: Long? = 0L
+    get() = usuario.id
+	
+	@Transient
+	var idCategoria: Long? = 0L
+	get() = categoria.id
+	
+	@Transient
+	var idConta: Long? = 0L
+	get() = conta.id
 }

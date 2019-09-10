@@ -43,7 +43,7 @@ abstract class BaseController<T>(private val service: BaseService<T>) where T : 
 		return if (entity != null) ResponseEntity(entity, HttpStatus.OK) else ResponseEntity(HttpStatus.NOT_FOUND)
 	}
 	
-	@GetMapping("/filter")
+	@GetMapping
 	fun find(@RequestParam params: MutableMap<String, Any>): ResponseEntity<List<T>> {
 		return ResponseEntity(service.find(params), HttpStatus.OK)
 	}

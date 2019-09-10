@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
-import app.financeapi.constant.Constants
 import app.financeapi.dto.ResultDTO
 import app.financeapi.service.DashboardService
 
@@ -17,8 +16,8 @@ class DashboardController(private val service: DashboardService) {
 	
 	@GetMapping
 	fun calculate(@RequestParam params: MutableMap<String, Any>): ResponseEntity<List<ResultDTO>> {
-		if(params.get("inicio") != null && params.get("fim") != null){
-		  return ResponseEntity(service.calculate(params), HttpStatus.OK)
+		if(params.contains("inicio") && params.contains("fim")){
+			return ResponseEntity(service.calculate(params), HttpStatus.OK)
 		}
 		
 		return ResponseEntity(HttpStatus.BAD_REQUEST)

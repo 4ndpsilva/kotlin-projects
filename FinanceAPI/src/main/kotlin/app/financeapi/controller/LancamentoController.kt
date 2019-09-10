@@ -23,15 +23,6 @@ import app.financeapi.util.DateUtil
 @RequestMapping("api/lancamentos")
 class LancamentoController(private val service: LancamentoService) : BaseController<Lancamento>(service) {
 
-	@GetMapping("/data/{inicio:\\d{2}-\\d{2}-\\d{4}}/{fim:\\d{2}-\\d{2}-\\d{4}}")
-	fun findByData(@PathVariable inicio: String, @PathVariable fim: String): ResponseEntity<List<Lancamento>> {
-		val params = LinkedHashMap<String, Any>()
-		params.put("inicio", DateUtil.toLocalDate(inicio, Constants.DATE_FORMAT))
-		params.put("fim", DateUtil.toLocalDate(fim, Constants.DATE_FORMAT))
-		
-		return search(params)
-	}
-
 	@GetMapping("/categoria/{idCategoria:\\d+}")
 	fun findByCategoria(@PathVariable idCategoria: Long): ResponseEntity<List<Lancamento>> {
 		val params = LinkedHashMap<String, Any>()
@@ -46,9 +37,9 @@ class LancamentoController(private val service: LancamentoService) : BaseControl
 		return search(params)
 	}
 
-	@GetMapping("/operacao/{operacao:[a-zA-Z]+}")
-	fun findByOperacao(@PathVariable operacao: String): ResponseEntity<List<Lancamento>> {
-		val operacao = when(operacao.toUpperCase()){
+	@GetMapping("/operacao/{op:[a-zA-Z]+}")
+	fun findByOperacao(@PathVariable op: String): ResponseEntity<List<Lancamento>> {
+		val operacao = when(op.toUpperCase()){
 			"debito".toUpperCase() -> OperacaoEnum.DEBITO
 			"credito".toUpperCase() -> OperacaoEnum.CREDITO
 			else -> return ResponseEntity(HttpStatus.NOT_FOUND)
