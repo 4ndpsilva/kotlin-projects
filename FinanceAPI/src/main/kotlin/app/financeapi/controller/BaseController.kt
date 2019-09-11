@@ -15,7 +15,7 @@ import org.springframework.http.HttpStatus
 
 import app.financeapi.service.BaseService
 import app.financeapi.entity.BaseEntity
-import app.financeapi.dto.BaseParamsDTO
+import app.financeapi.util.RequestParametersUtil
 
 
 abstract class BaseController<T>(private val service: BaseService<T>) where T : BaseEntity<Long> {
@@ -26,15 +26,22 @@ abstract class BaseController<T>(private val service: BaseService<T>) where T : 
 
 	@PutMapping("/{id:\\d+}")
 	fun update(@PathVariable("id") id: Long, @RequestBody requestDTO: T): ResponseEntity<T> {
-		return if (service.exists(id)) ResponseEntity(service.save(requestDTO), HttpStatus.OK) else ResponseEntity(HttpStatus.NOT_FOUND)
+		if (service.exists(id)){ 
+		    requestDTO.id = id
+			return ResponseEntity(service.save(requestDTO), HttpStatus.OK) 
+		}
+		
+		return ResponseEntity(HttpStatus.NOT_FOUND)
 	}
 
 	@DeleteMapping("/{id:\\d+}")
 	fun delete(@PathVariable("id") id: Long): ResponseEntity<T> {
-		return if (service.exists(id)) {
+		if (service.exists(id)) {
 			service.delete(id)
-			ResponseEntity(HttpStatus.NO_CONTENT)
-		} else ResponseEntity(HttpStatus.NOT_FOUND)
+			return ResponseEntity(HttpStatus.NO_CONTENT)
+		} 
+		
+		return ResponseEntity(HttpStatus.NOT_FOUND)
 	}
 
 	@GetMapping("/{id:\\d+}")
@@ -45,6 +52,6 @@ abstract class BaseController<T>(private val service: BaseService<T>) where T : 
 	
 	@GetMapping
 	fun find(@RequestParam params: MutableMap<String, Any>): ResponseEntity<List<T>> {
-		return ResponseEntity(service.find(params), HttpStatus.OK)
+	    return if(RequestParametersUtil.valid(params)) ResponseEntity(service.find(params), HttpStatus.OK) else ResponseEntity(HttpStatus.BAD_REQUEST)
 	}
 }

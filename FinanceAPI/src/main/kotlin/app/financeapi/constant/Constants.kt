@@ -10,5 +10,6 @@ class Constants {
 		const val DATA_INICIO  = "inicio"
 		const val DATA_FIM     = "fim"
 		const val DESCRICAO    = "descricao"
+		const val OPERACAO     = "operacao"
 	}
 }

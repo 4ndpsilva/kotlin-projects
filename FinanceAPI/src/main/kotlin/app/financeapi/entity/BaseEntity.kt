@@ -8,7 +8,7 @@ import javax.persistence.Version
 
 
 @MappedSuperclass
-abstract class BaseEntity<T>(@Id @GeneratedValue(strategy = GenerationType.IDENTITY) val id: T) {
+abstract class BaseEntity<T>(@Id @GeneratedValue(strategy = GenerationType.IDENTITY) var id: T) {
 
 	override fun equals(other: Any?): Boolean {
 		if (this === other) return true
