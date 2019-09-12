@@ -9,9 +9,7 @@ import app.financeapi.constant.Constants
 
 
 abstract class BaseService<T>(private val repository: BaseRepository<T>) where T : BaseEntity<Long> {
-    protected var spec = Specification.where<T>(null)
-	
-	fun save(entity: T) = repository.save(entity)
+    fun save(entity: T) = repository.save(entity)
 
 	fun delete(id: Long): Unit {
 		repository.deleteById(id)
@@ -21,16 +19,7 @@ abstract class BaseService<T>(private val repository: BaseRepository<T>) where T
 	
 	fun findById(id: Long) = repository.findById(id).orElse(null)
 	
-	open fun find(params: MutableMap<String, Any>?): List<T> {
-	  params?.let{	  
-		  if(params.contains(Constants.ID)){
-			spec = spec.and(QuerySpec.byId<T>(params.get(Constants.ID).toString().toLong()))
-		  }
-		  if(params.contains(Constants.DESCRICAO)){
-			spec = spec.and(QuerySpec.byLike<T>(params.get(Constants.DESCRICAO).toString()))
-		  }
-	  }
-	  
-	  return repository.findAll(spec)
+	open fun find(params: MutableMap<String, Any>? = null): List<T> {
+		return repository.findAll()
 	}
 }

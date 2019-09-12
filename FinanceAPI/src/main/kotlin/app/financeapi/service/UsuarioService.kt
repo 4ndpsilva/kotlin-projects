@@ -2,8 +2,8 @@ package app.financeapi.service
 
 import org.springframework.stereotype.Service
 
-import app.financeapi.entity.Usuario
 import app.financeapi.repository.UsuarioRepository
+import app.financeapi.entity.Usuario
 
 @Service
-class UsuarioService(val repo: UsuarioRepository) : BaseService<Usuario>(repo)
+class UsuarioService(val repository: UsuarioRepository) : BaseService<Usuario>(repository)

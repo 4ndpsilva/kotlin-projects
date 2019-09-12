@@ -6,4 +6,4 @@ import app.financeapi.entity.Categoria
 import app.financeapi.repository.CategoriaRepository
 
 @Service
-class CategoriaService(val repo: CategoriaRepository) : BaseService<Categoria>(repo)
+class CategoriaService(private val repository: CategoriaRepository) : BaseService<Categoria>(repository)
