@@ -36,5 +36,5 @@ noArg {
 }
 
 application {
-    mainClassName = 'app.financeapi.FinanceAPIApplicationKt'
+    mainClassName = 'app.finance.api.FinanceAPIApplicationKt'
 }

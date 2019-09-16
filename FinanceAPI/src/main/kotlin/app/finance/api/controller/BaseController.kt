@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*
 
 abstract class BaseController<T>(
 		private val service: BaseService<T>,
-		var listParams: List<String>? = null) where T : BaseEntity<Long> {
+		var listParams: List<String> = emptyList()) where T : BaseEntity<Long> {
 
 	@PostMapping
 	fun save(@RequestBody requestDTO: T): ResponseEntity<T> {

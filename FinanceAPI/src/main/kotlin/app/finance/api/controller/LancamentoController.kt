@@ -3,6 +3,7 @@ package app.finance.api.controller
 import app.finance.api.entity.Lancamento
 import app.finance.api.enums.OperacaoEnum
 import app.finance.api.service.LancamentoService
+import app.finance.api.request.LancamentoParams
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
@@ -12,7 +13,8 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("api/lancamentos")
-class LancamentoController(private val service: LancamentoService) : BaseController<Lancamento>(service) {
+class LancamentoController(private val service: LancamentoService) :
+		BaseController<Lancamento>(service, LancamentoParams.parameters()) {
 
 	@GetMapping("/categoria/{idCategoria:\\d+}")
 	fun findByCategoria(@PathVariable idCategoria: Long): ResponseEntity<List<Lancamento>> {
@@ -41,5 +43,5 @@ class LancamentoController(private val service: LancamentoService) : BaseControl
 		return search(params)
 	}
 
-	private fun search(params: MutableMap<String, Any>) = ResponseEntity(service.find(params), HttpStatus.OK)
+	private fun search(params: MutableMap<String, Any>) = super.find(params)
 }
