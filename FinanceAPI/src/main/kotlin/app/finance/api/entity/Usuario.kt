@@ -11,6 +11,9 @@ data class Usuario(
     @Column(name = "NOME", length = 50, nullable = false)
 	var nome: String? = null, 
 	
+	@Column(name = "EMAIL", length = 50, nullable = false)
+	var email: String? = null, 
+	
 	@Column(name = "LOGIN", length = 50, unique = true, nullable = false)
 	var login: String? = null, 
 	
