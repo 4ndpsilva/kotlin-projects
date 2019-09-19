@@ -17,19 +17,4 @@ abstract class BaseEntity{
 	@ManyToOne
 	@JoinColumn(mappedBy = "usuario_id", nullable = true)
 	lateinit var usuario: Usuario
-
-	override fun equals(other: Any?): Boolean {
-		if (this === other) return true
-		if (javaClass != other?.javaClass) return false
-
-		other as BaseEntity
-
-		if (id != other.id) return false
-
-		return true
-	}
-
-	override fun hashCode() = id.hashCode()
-
-	override fun toString() = "BaseEntity(id = $id)"
 }
