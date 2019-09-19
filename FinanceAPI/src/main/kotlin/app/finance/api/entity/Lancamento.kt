@@ -1,18 +1,13 @@
 package app.finance.api.entity
 
 import app.finance.api.enums.OperacaoEnum
-import javax.persistence.Entity
-import javax.persistence.Table
-import javax.persistence.Column
-import javax.persistence.JoinColumn
-import javax.persistence.ManyToOne
-import javax.persistence.EnumType
-import javax.persistence.Enumerated
-import javax.persistence.Transient
 
 import com.fasterxml.jackson.annotation.JsonIgnore
+import org.hibernate.annotations.JoinColumnOrFormula
+import org.hibernate.annotations.JoinColumnsOrFormulas
 
 import java.time.LocalDate
+import javax.persistence.*
 
 @Entity
 @Table(name = "TB_LANCAMENTO")
@@ -25,21 +20,20 @@ data class Lancamento(
 
         @Column(length = 20)
 	val observacao: String?
-) : BaseEntity<Long>(0L) {
+) : BaseEntity() {
 
-    @JsonIgnore 
-    @ManyToOne
-	@JoinColumn(mappedBy = "usuario_id", nullable = true)
-	lateinit var usuario: Usuario 
-	
 	@JsonIgnore
 	@ManyToOne
-	@JoinColumn(mappedBy = "categoria_id", nullable = false)
+	@JoinColumnsOrFormulas(
+			JoinColumnOrFormula(name = "categoria_id"),
+			JoinColumnOrFormula(name = "usuario_id", insertable = false, updatable = false))
 	lateinit var categoria: Categoria
 
 	@JsonIgnore
 	@ManyToOne
-	@JoinColumn(mappedBy = "conta_id", nullable = false)
+	@JoinColumnsOrFormulas(
+			JoinColumnOrFormula(name = "categoria_id"),
+			JoinColumnOrFormula(name = "usuario_id", insertable = false, updatable = false))
 	lateinit var conta: Conta
 
 	@Column(precision = 5, scale = 2, nullable = false)

@@ -4,6 +4,6 @@ import app.finance.api.constant.Constants
 
 object ContaParams{
     fun parameters(): List<String>{
-        return listOf(Constants.ID, Constants.DESCRICAO, Constants.ID_CATEGORIA)
+        return listOf(Constants.ID, Constants.ID_USUARIO, Constants.ID_CATEGORIA, Constants.DESCRICAO)
     }
 }

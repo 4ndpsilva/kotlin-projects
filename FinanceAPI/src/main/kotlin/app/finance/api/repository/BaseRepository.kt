@@ -6,4 +6,4 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor
 import org.springframework.data.repository.NoRepositoryBean
 
 @NoRepositoryBean
-interface BaseRepository<T> : JpaRepository<T, Long>, JpaSpecificationExecutor<T> where T : BaseEntity<Long> {}
+interface BaseRepository<T> : JpaRepository<T, Long>, JpaSpecificationExecutor<T> where T : BaseEntity {}
