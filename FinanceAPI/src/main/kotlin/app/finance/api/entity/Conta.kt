@@ -8,7 +8,6 @@ import javax.persistence.Table
 import javax.persistence.Entity
 import javax.persistence.Column
 import javax.persistence.Transient
-import javax.persistence.FetchType
 
 
 @Entity
@@ -16,7 +15,7 @@ import javax.persistence.FetchType
 data class Conta(@Column(length = 20, nullable = false) val descricao: String) : BaseEntity() {
 
     @JsonIgnore
-	@ManyToOne(FetchType.LAZY)
+	@ManyToOne
 	@JoinColumnsOrFormulas(
 			JoinColumnOrFormula(name = "categoria_id"),
 			JoinColumnOrFormula(name = "usuario_id", insertable = false, updatable = false))

@@ -6,11 +6,11 @@ object LancamentoParams{
     fun parameters(): List<String>{
         return listOf(
                 Constants.ID,
-                Constants.ID_USUARIO,
+                Constants.USUARIO,
                 Constants.DATA_INICIO,
                 Constants.DATA_FIM,
-                Constants.ID_CATEGORIA,
-                Constants.ID_CONTA,
+                Constants.CATEGORIA,
+                Constants.CONTA,
                 Constants.OPERACAO)
     }
 }

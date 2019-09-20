@@ -10,7 +10,7 @@ import javax.persistence.MappedSuperclass
 @MappedSuperclass
 @IdClass(PK::class)
 abstract class BaseEntity{
-	@Id var id: Long = 0L
+	var id: Long = 0L
 
 	@JsonIgnore
 	@Id
