@@ -10,11 +10,12 @@ import javax.persistence.MappedSuperclass
 @MappedSuperclass
 @IdClass(PK::class)
 abstract class BaseEntity{
+	@Id
 	var id: Long = 0L
 
-	@JsonIgnore
 	@Id
+	@JsonIgnore
 	@ManyToOne
-	@JoinColumn(mappedBy = "usuario_id", nullable = true)
+	@JoinColumn(mappedBy = "usuario_id")
 	lateinit var usuario: Usuario
 }
