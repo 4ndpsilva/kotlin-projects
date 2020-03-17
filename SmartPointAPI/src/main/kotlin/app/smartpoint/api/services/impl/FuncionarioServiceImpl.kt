@@ -1,11 +1,13 @@
 package app.smartpoint.api.services.impl
 
 import app.smartpoint.api.documents.Funcionario
+import app.smartpoint.api.repositories.FuncionarioRepository
 import app.smartpoint.api.services.FuncionarioService
 import org.springframework.stereotype.Service
 
 @Service
-class FuncionarioServiceImpl : FuncionarioService{
+class FuncionarioServiceImpl(val repo: FuncionarioRepository) : FuncionarioService{
+
     override fun save(funcionario: Funcionario): Funcionario {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
