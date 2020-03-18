@@ -4,7 +4,7 @@ import app.finance.api.entity.BaseEntity
 import app.finance.api.entity.PK
 import app.finance.api.repository.BaseRepository
 
-abstract class BaseService<T>(private val repository: BaseRepository<T>) where T : BaseEntity {
+abstract class BaseService<T : BaseEntity>(private val repository: BaseRepository<T>) {
     fun save(entity: T) = repository.save(entity)
 
 	fun delete(id: PK): Unit {

@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestParam
 
 
-abstract class BaseController<T>(
+abstract class BaseController<T : BaseEntity>(
 		private val service: BaseService<T>,
-		var listParams: List<String> = emptyList()) where T : BaseEntity {
+		var listParams: List<String> = emptyList()) {
 	
 	var usuario: Long = 1
 	
