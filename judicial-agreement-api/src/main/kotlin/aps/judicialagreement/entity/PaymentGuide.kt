@@ -8,19 +8,19 @@ import javax.persistence.*
 @Table(name = "TB_GUIA_PAGAMENTO")
 data class PaymentGuide(
         @Column(name = "NUMERO_PARCELA", nullable = false)
-        val numberOfPlot: Int,
+        var numberOfPlot: Int = 0,
 
         @Column(name = "DATA_VENCIMENTO", nullable = false)
-        val dueDate: LocalDate,
+        var dueDate: LocalDate = LocalDate.now(),
 
         @Column(name = "DATA_PAGAMENTO")
-        val payday: LocalDate,
+        var payday: LocalDate? = null,
 
         @Column(name = "VALOR", precision = 6, scale = 2, nullable = false)
-        val value: BigDecimal,
+        var value: BigDecimal = BigDecimal.ZERO,
 
         @Column(name = "QUITADO", nullable = false)
-        val settled: Boolean,
+        var settled: Boolean = false,
 ) : BaseEntity() {
     @ManyToOne
     @JoinColumn(name = "ID_ACORDO")

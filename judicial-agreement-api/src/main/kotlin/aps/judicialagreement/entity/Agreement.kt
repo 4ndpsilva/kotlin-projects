@@ -29,6 +29,6 @@ data class Agreement(
     @JoinColumn(name = "ID_FORMA_PAGAMENTO")
     lateinit var paymentWay: PaymentWay
 
-    @OneToMany(mappedBy = "paymentoGuide", cascade = [PERSIST, MERGE, REMOVE], fetch = EAGER)
-    lateinit var paymentGuideList: MutableList<PaymentGuide>
+    @OneToMany(mappedBy = "agreement", cascade = [PERSIST, MERGE, REMOVE])
+    val paymentGuideList = mutableListOf<PaymentGuide>()
 }
